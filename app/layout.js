@@ -1,6 +1,11 @@
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
+import { ConvexClientProvider } from "./ConvexClientProvider";
+import { ClerkProvider} from "@clerk/nextjs"
+import { dark } from "@clerk/themes"
+import { Toaster } from "sonner";
+
 export const metadata = {
   title: "Spott",
   description: "Discover and create amazing events",
@@ -16,6 +21,11 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
+            <ClerkProvider
+            appearance={{
+            theme: dark,
+          }}>
+            <ConvexClientProvider>
             <Header/>
           <main className="relative min-h-screen container mx-auto pt-40 md:pt-32">
             <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -28,8 +38,12 @@ export default function RootLayout({ children }) {
             <footer className="border-t border-gray-800/50 py-8 px-6 max-w-7xl mx-auto">
               <div className="text-sm text-gray-400">Made with ❤️ by Gauri Suthar</div>
             </footer>
+            <Toaster richColors />
           </main>
+          </ConvexClientProvider>
+          </ClerkProvider>
           </ThemeProvider>
+          
         </body>  
     </html>
   );
